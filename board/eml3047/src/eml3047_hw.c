@@ -308,13 +308,10 @@ void HW_Init( void )
     if ( McuInitialized == RESET )
     {
         HW_GpioInit( );
-#if defined(USE_BOOTLOADER)
-        /* Set the Vector Table base location at 0x3000 */
-        NVIC_SetVectorTable(NVIC_VectTab_FLASH, 0x3000);
-#endif
+        __HAL_RCC_GPIOB_CLK_ENABLE();
 
-        Radio.IoInit( );
-        HW_SPI_Init( );
+        //Radio.IoInit( );
+        //HW_SPI_Init( );
         HW_RTC_Init( );
 
 #ifdef LORA_DEBUG

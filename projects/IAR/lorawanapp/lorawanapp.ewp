@@ -11,7 +11,7 @@
             <name>General</name>
             <archiveVersion>3</archiveVersion>
             <data>
-                <version>29</version>
+                <version>30</version>
                 <wantNonLocal>1</wantNonLocal>
                 <debug>1</debug>
                 <option>
@@ -49,16 +49,16 @@
                 <option>
                     <name>GRuntimeLibSelect</name>
                     <version>0</version>
-                    <state>1</state>
+                    <state>2</state>
                 </option>
                 <option>
                     <name>GRuntimeLibSelectSlave</name>
                     <version>0</version>
-                    <state>1</state>
+                    <state>2</state>
                 </option>
                 <option>
                     <name>RTDescription</name>
-                    <state>Use the normal configuration of the C/C++ runtime library. No locale interface, C locale, no file descriptor support, no multibytes in printf and scanf, and no hex floats in strtod.</state>
+                    <state>Use the full configuration of the C/C++ runtime library. Full locale interface, C locale, file descriptor support, multibytes in printf and scanf, and hex floats in strtod.</state>
                 </option>
                 <option>
                     <name>OGProductVersion</name>
@@ -66,7 +66,7 @@
                 </option>
                 <option>
                     <name>OGLastSavedByProductVersion</name>
-                    <state>8.20.1.14181</state>
+                    <state>8.22.2.15993</state>
                 </option>
                 <option>
                     <name>GeneralEnableMisra</name>
@@ -78,7 +78,7 @@
                 </option>
                 <option>
                     <name>OGChipSelectEditMenu</name>
-                    <state>STM32L071KB	ST STM32L071KB</state>
+                    <state>STM32L072CB	ST STM32L072CB</state>
                 </option>
                 <option>
                     <name>GenLowLevelInterface</name>
@@ -112,7 +112,7 @@
                 </option>
                 <option>
                     <name>RTConfigPath2</name>
-                    <state>$TOOLKIT_DIR$\INC\c\DLib_Config_Normal.h</state>
+                    <state>$TOOLKIT_DIR$\INC\c\DLib_Config_Full.h</state>
                 </option>
                 <option>
                     <name>GBECoreSlave</name>
@@ -138,7 +138,7 @@
                 </option>
                 <option>
                     <name>GFPUDeviceSlave</name>
-                    <state>STM32L071KB	ST STM32L071KB</state>
+                    <state>STM32L072CB	ST STM32L072CB</state>
                 </option>
                 <option>
                     <name>FPU2</name>
@@ -200,6 +200,10 @@
                     <name>DSPExtension</name>
                     <state>0</state>
                 </option>
+                <option>
+                    <name>TrustZone</name>
+                    <state>0</state>
+                </option>
             </data>
         </settings>
         <settings>
@@ -211,20 +215,29 @@
                 <debug>1</debug>
                 <option>
                     <name>CCDefines</name>
-                    <state>STM32L071xx</state>
+                    <state>STM32L072xx</state>
                     <state>USE_FULL_LL_DRIVER</state>
                     <state>USE_B_EML3047</state>
                     <state>USE_HAL_DRIVER</state>
+                    <state>REGION_AS923</state>
+                    <state>REGION_AU915</state>
                     <state>REGION_CN470</state>
+                    <state>REGION_CN779</state>
+                    <state>REGION_EU433</state>
+                    <state>REGION_KR920</state>
+                    <state>REGION_IN865</state>
+                    <state>REGION_US915</state>
+                    <state>REGION_US915_HYBRID</state>
                     <state>SYSINFO_OS_VERSION="AOS-R-1.2.1-"</state>
                     <state>SYSINFO_PRODUCT_MODEL="ALI_AOS_B-L475E"</state>
-                    <state>SYSINFO_DEVICE_NAME="B-L475E"</state>
+                    <state>SYSINFO_DEVICE_NAME="RHF76-052DM"</state>
                     <state>SYSINFO_KERNEL_VERSION="AOS-R-1.2.1"</state>
                     <state>SYSINFO_APP_VERSION="APP-1.0.0-20171128.1211"</state>
                     <state>STDIO_UART=0</state>
                     <state>CONFIG_NO_TCPIP</state>
                     <state>__BSD_VISIBLE</state>
                     <state>RHINO_CONFIG_TICK_TASK=0</state>
+                    <state>USE_BOOTLOADER</state>
                 </option>
                 <option>
                     <name>CCPreprocFile</name>
@@ -789,7 +802,7 @@
                 </option>
                 <option>
                     <name>IlinkIcfFile</name>
-                    <state>C:\repo\aos\platform\mcu\stm32l0xx\stm32l071kb\stm32l071xB.icf</state>
+                    <state>$PROJ_DIR$\..\..\..\platform\mcu\stm32l0xx\stm32l072cb\stm32l072xx_flash_bl8k.icf</state>
                 </option>
                 <option>
                     <name>IlinkIcfFileSlave</name>
@@ -1059,7 +1072,7 @@
             <name>General</name>
             <archiveVersion>3</archiveVersion>
             <data>
-                <version>29</version>
+                <version>30</version>
                 <wantNonLocal>1</wantNonLocal>
                 <debug>0</debug>
                 <option>
@@ -1114,7 +1127,7 @@
                 </option>
                 <option>
                     <name>OGLastSavedByProductVersion</name>
-                    <state></state>
+                    <state>8.22.2.15993</state>
                 </option>
                 <option>
                     <name>GeneralEnableMisra</name>
@@ -1126,7 +1139,7 @@
                 </option>
                 <option>
                     <name>OGChipSelectEditMenu</name>
-                    <state></state>
+                    <state>Default	None</state>
                 </option>
                 <option>
                     <name>GenLowLevelInterface</name>
@@ -1160,7 +1173,7 @@
                 </option>
                 <option>
                     <name>RTConfigPath2</name>
-                    <state></state>
+                    <state>$TOOLKIT_DIR$\INC\c\DLib_Config_Normal.h</state>
                 </option>
                 <option>
                     <name>GBECoreSlave</name>
@@ -1186,7 +1199,7 @@
                 </option>
                 <option>
                     <name>GFPUDeviceSlave</name>
-                    <state>-</state>
+                    <state>Default	None</state>
                 </option>
                 <option>
                     <name>FPU2</name>
@@ -1246,6 +1259,10 @@
                 </option>
                 <option>
                     <name>DSPExtension</name>
+                    <state>0</state>
+                </option>
+                <option>
+                    <name>TrustZone</name>
                     <state>0</state>
                 </option>
             </data>
@@ -1368,7 +1385,7 @@
                 </option>
                 <option>
                     <name>OutputFile</name>
-                    <state></state>
+                    <state>$FILE_BNAME$.o</state>
                 </option>
                 <option>
                     <name>CCLibConfigHeader</name>
@@ -1409,7 +1426,7 @@
                 </option>
                 <option>
                     <name>CCOptLevelSlave</name>
-                    <state>1</state>
+                    <state>3</state>
                 </option>
                 <option>
                     <name>CompilerMisraRules98</name>
@@ -1634,7 +1651,7 @@
                 </option>
                 <option>
                     <name>AOutputFile</name>
-                    <state></state>
+                    <state>$FILE_BNAME$.o</state>
                 </option>
                 <option>
                     <name>ALimitErrorsCheck</name>
@@ -1739,7 +1756,7 @@
                 </option>
                 <option>
                     <name>IlinkOutputFile</name>
-                    <state>###Unitialized###</state>
+                    <state>lorawanapp.out</state>
                 </option>
                 <option>
                     <name>IlinkDebugInfoEnable</name>
@@ -1803,7 +1820,7 @@
                 </option>
                 <option>
                     <name>IlinkIcfFile</name>
-                    <state>lnk0t.icf</state>
+                    <state>$TOOLKIT_DIR$\CONFIG\generic_cortex.icf</state>
                 </option>
                 <option>
                     <name>IlinkIcfFileSlave</name>
@@ -1863,7 +1880,7 @@
                 </option>
                 <option>
                     <name>IlinkProgramEntryLabel</name>
-                    <state></state>
+                    <state>__iar_program_start</state>
                 </option>
                 <option>
                     <name>DoFill</name>
@@ -2100,15 +2117,9 @@
         <name>device</name>
         <group>
             <name>eml3047_lrwan</name>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\device\lora\eml3047_lrwan\eml3047.c</name>
-            </file>
         </group>
         <group>
             <name>sx127x</name>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\device\lora\sx1276\sx1276.c</name>
-            </file>
         </group>
     </group>
     <group>
@@ -2128,9 +2139,6 @@
                 <name>$PROJ_DIR$\..\..\..\platform\mcu\stm32l0xx\src\STM32L071KB\runapp\stm32l0xx_it.c</name>
             </file>
         </group>
-        <file>
-            <name>$PROJ_DIR$\..\..\..\example\lorawanapp\lorawanapp.c</name>
-        </file>
     </group>
     <group>
         <name>kernel</name>
@@ -2318,7 +2326,7 @@
                 <group>
                     <name>cmsis</name>
                     <file>
-                        <name>$PROJ_DIR$\..\..\..\platform\mcu\stm32l0xx\Drivers\CMSIS\Device\ST\STM32L0xx\Source\Templates\iar\startup_stm32l071xx.s</name>
+                        <name>$PROJ_DIR$\..\..\..\platform\mcu\stm32l0xx\Drivers\CMSIS\Device\ST\STM32L0xx\Source\Templates\iar\startup_stm32l072xx.s</name>
                     </file>
                     <file>
                         <name>$PROJ_DIR$\..\..\..\platform\mcu\stm32l0xx\Drivers\CMSIS\Device\ST\STM32L0xx\Source\Templates\system_stm32l0xx.c</name>
@@ -2407,5 +2415,14 @@
                 </group>
             </group>
         </group>
+    </group>
+    <group>
+        <name>test</name>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\test\testcase\certificate_test\cutest\cut.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\test\testcase\certificate_test\rhino_test.c</name>
+        </file>
     </group>
 </project>
