@@ -125,7 +125,7 @@ export COMPONENT_DEPENDENCY
 
 .PHONY: $(BUILD_STRING) main_app bootloader clean Help download total run download_bootloader .gdbinit .gdbinit$(BINSTYPE_LOWER)
 
-Help: 
+Help:
 	$(TOOLCHAIN_HOOK_TARGETS)
 	$(error $(USAGE_TEXT))
 
@@ -225,7 +225,11 @@ main_app: $(OUTPUT_DIR)/config.mk $(YOS_SDK_PRE_APP_BUILDS) $(MAKEFILES_PATH)/ao
 ifeq ($(SUB_BUILD),)
 .gdbinit: $(OUTPUT_DIR)/config.mk $(MAKEFILES_PATH)/aos_host_cmd.mk main_app
 	$(QUIET)$(ECHO) Making $@
+ifeq ($(HOST_OS), Win32)
+	$(QUIET)$(ECHO) #GDB_PATH=$(GDB_COMMAND) > $@
+else
 	$(QUIET)$(ECHO) '#GDB_PATH=$(GDB_COMMAND)' > $@
+endif
 	$(QUIET)$(ECHO) set remotetimeout 20 >> $@
 	$(QUIET)$(ECHO) $(GDB_KILL_OPENOCD) >> $@
 	$(QUIET)$(ECHO) $(GDBINIT_STRING) >> $@
@@ -233,6 +237,6 @@ ifeq ($(SUB_BUILD),)
 ifneq ($(BINS),)
 .gdbinit$(BINSTYPE_LOWER): $(OUTPUT_DIR)/config.mk $(MAKEFILES_PATH)/aos_host_cmd.mk main_app
 	$(QUIET)$(ECHO) Making $@
-	$(QUIET)$(ECHO) $(SUBGDBINIT_STRING) >> $@
+	$(QUIET)$(ECHO) $(SUBGDBINIT_STRING) > $@
 endif
 endif
