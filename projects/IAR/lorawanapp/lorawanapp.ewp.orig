@@ -222,6 +222,7 @@
                     <state>REGION_AS923</state>
                     <state>REGION_AU915</state>
                     <state>REGION_CN470</state>
+<<<<<<< HEAD
                     <state>REGION_CN779</state>
                     <state>REGION_EU433</state>
                     <state>REGION_KR920</state>
@@ -232,11 +233,18 @@
                     <state>SYSINFO_PRODUCT_MODEL="ALI_AOS_B-L475E"</state>
                     <state>SYSINFO_DEVICE_NAME="RHF76-052DM"</state>
                     <state>SYSINFO_KERNEL_VERSION="AOS-R-1.2.1"</state>
+=======
+                    <state>SYSINFO_OS_VERSION="AOS-R-1.2.2-"</state>
+                    <state>SYSINFO_PRODUCT_MODEL="ALI_AOS_B-L475E"</state>
+                    <state>SYSINFO_DEVICE_NAME="B-L475E"</state>
+                    <state>SYSINFO_KERNEL_VERSION="AOS-R-1.2.2"</state>
+>>>>>>> risinghf/master
                     <state>SYSINFO_APP_VERSION="APP-1.0.0-20171128.1211"</state>
                     <state>STDIO_UART=0</state>
                     <state>CONFIG_NO_TCPIP</state>
                     <state>__BSD_VISIBLE</state>
                     <state>RHINO_CONFIG_TICK_TASK=0</state>
+                    <state>USE_BOOTLOADER</state>
                 </option>
                 <option>
                     <name>CCPreprocFile</name>
@@ -682,7 +690,7 @@
                 </option>
                 <option>
                     <name>OOCOutputFile</name>
-                    <state>lorawanapp.srec</state>
+                    <state></state>
                 </option>
                 <option>
                     <name>OOCCommandLineProducer</name>
@@ -801,7 +809,11 @@
                 </option>
                 <option>
                     <name>IlinkIcfFile</name>
-                    <state>$PROJ_DIR$\..\..\..\platform\mcu\stm32l0xx\stm32l072cb\stm32l072xx_flash.icf</state>
+<<<<<<< HEAD
+                    <state>$PROJ_DIR$\..\..\..\platform\mcu\stm32l0xx\stm32l072cb\stm32l072xx_flash_bl8k.icf</state>
+=======
+                    <state>$PROJ_DIR$\..\..\..\platform\mcu\stm32l0xx\stm32l071kb\stm32l071xB.icf</state>
+>>>>>>> risinghf/master
                 </option>
                 <option>
                     <name>IlinkIcfFileSlave</name>
