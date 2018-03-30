@@ -232,7 +232,7 @@
                     <state>SYSINFO_PRODUCT_MODEL="ALI_AOS_B-L475E"</state>
                     <state>SYSINFO_DEVICE_NAME="RHF76-052DM"</state>
                     <state>SYSINFO_KERNEL_VERSION="AOS-R-1.2.1"</state>
-                    <state>SYSINFO_APP_VERSION="APP-1.0.0-20171128.1211"</state>
+                    <state>SYSINFO_APP_VERSION="APP-1.0.0-20180330.1719"</state>
                     <state>STDIO_UART=0</state>
                     <state>CONFIG_NO_TCPIP</state>
                     <state>__BSD_VISIBLE</state>
@@ -674,7 +674,7 @@
                 <option>
                     <name>OOCOutputFormat</name>
                     <version>3</version>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>OCOutputOverride</name>
@@ -682,7 +682,7 @@
                 </option>
                 <option>
                     <name>OOCOutputFile</name>
-                    <state>lorawanapp.srec</state>
+                    <state>lorawanapp.hex</state>
                 </option>
                 <option>
                     <name>OOCCommandLineProducer</name>
@@ -690,7 +690,7 @@
                 </option>
                 <option>
                     <name>OOCObjCopyEnable</name>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
             </data>
         </settings>
