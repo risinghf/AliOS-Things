@@ -44,7 +44,7 @@
 #endif
 
 /* timer test */
-#define TEST_CONFIG_TIMER_ENABLED               (1)
+#define TEST_CONFIG_TIMER_ENABLED               (0)
 
 /* kv test */
 #define TEST_CONFIG_KV_ENABLED                  (0)
