@@ -2116,9 +2116,15 @@
         <name>device</name>
         <group>
             <name>eml3047_lrwan</name>
+            <file>
+                <name>$PROJ_DIR$\..\..\..\device\lora\eml3047_lrwan\eml3047.c</name>
+            </file>
         </group>
         <group>
             <name>sx127x</name>
+            <file>
+                <name>$PROJ_DIR$\..\..\..\device\lora\sx1276\sx1276.c</name>
+            </file>
         </group>
     </group>
     <group>
@@ -2138,6 +2144,9 @@
                 <name>$PROJ_DIR$\..\..\..\platform\mcu\stm32l0xx\src\STM32L071KB\runapp\stm32l0xx_it.c</name>
             </file>
         </group>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\example\lorawanapp\lorawanapp.c</name>
+        </file>
     </group>
     <group>
         <name>kernel</name>

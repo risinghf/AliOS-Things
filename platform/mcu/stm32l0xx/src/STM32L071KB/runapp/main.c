@@ -56,9 +56,9 @@ int main(void)
   MX_GPIO_Init();
   //MX_USART4_UART_Init();
 
-  test_certificate();
+  //test_certificate();
 
-#if 0
+#if 1
   /* aos initialization */
   aos_init();
 

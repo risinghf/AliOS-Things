@@ -310,8 +310,8 @@ void HW_Init( void )
         HW_GpioInit( );
         __HAL_RCC_GPIOB_CLK_ENABLE();
 
-        //Radio.IoInit( );
-        //HW_SPI_Init( );
+        Radio.IoInit( );
+        HW_SPI_Init( );
         HW_RTC_Init( );
 
 #ifdef LORA_DEBUG
