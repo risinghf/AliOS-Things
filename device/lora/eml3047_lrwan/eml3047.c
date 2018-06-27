@@ -51,7 +51,7 @@ Maintainer: Miguel Luis and Gregory Cristian
   *
   ******************************************************************************
   */
-  
+
 /* Includes ------------------------------------------------------------------*/
 
 #include "hw.h"
@@ -66,12 +66,12 @@ Maintainer: Miguel Luis and Gregory Cristian
 /* Delay in ms between radio set in sleep mode and TCXO off*/
 #define TCXO_OFF_DELAY 3
 
-#define TCXO_ON()   //HW_GPIO_Write( RADIO_TCXO_VCC_PORT, RADIO_TCXO_VCC_PIN, 1) 
+#define TCXO_ON()   //HW_GPIO_Write( RADIO_TCXO_VCC_PORT, RADIO_TCXO_VCC_PIN, 1)
 
-#define TCXO_OFF()  //HW_GPIO_Write( RADIO_TCXO_VCC_PORT, RADIO_TCXO_VCC_PIN, 0) 
+#define TCXO_OFF()  //HW_GPIO_Write( RADIO_TCXO_VCC_PORT, RADIO_TCXO_VCC_PIN, 0)
 
 static void SX1276AntSwInit( void );
-  
+
 static void SX1276AntSwDeInit( void );
 
 void SX1276SetXO( uint8_t state );
@@ -122,7 +122,7 @@ const struct Radio_s Radio =
   SX1276GetTimeOnAir,
   SX1276Send,
   SX1276SetSleep,
-  SX1276SetStby, 
+  SX1276SetStby,
   SX1276SetRx,
   SX1276StartCad,
   SX1276SetTxContinuousWave,
@@ -136,6 +136,8 @@ const struct Radio_s Radio =
   SX1276GetRadioWakeUpTime
 };
 
+uint8_t sx1276_band;
+
 uint32_t SX1276GetWakeTime( void )
 {
   return  BOARD_WAKEUP_TIME;
@@ -146,21 +148,21 @@ void SX1276SetXO( uint8_t state )
 
   if (state == SET )
   {
-    TCXO_ON(); 
-    
+    TCXO_ON();
+
     DelayMs( BOARD_WAKEUP_TIME ); //start up time of TCXO
   }
   else
   {
-    TCXO_OFF(); 
+    TCXO_OFF();
   }
 }
 void SX1276IoInit( void )
 {
   GPIO_InitTypeDef initStruct={0};
-  
+
   SX1276BoardInit( &BoardCallbacks );
-  
+
   initStruct.Mode =GPIO_MODE_IT_RISING;
   initStruct.Pull = GPIO_PULLUP;
   initStruct.Speed = GPIO_SPEED_HIGH;
@@ -169,9 +171,9 @@ void SX1276IoInit( void )
   HW_GPIO_Init( RADIO_DIO_1_PORT, RADIO_DIO_1_PIN, &initStruct );
   HW_GPIO_Init( RADIO_DIO_2_PORT, RADIO_DIO_2_PIN, &initStruct );
   HW_GPIO_Init( RADIO_DIO_3_PORT, RADIO_DIO_3_PIN, &initStruct );
-  
+
   initStruct.Mode =GPIO_MODE_OUTPUT_PP;
-  initStruct.Pull = GPIO_NOPULL;  
+  initStruct.Pull = GPIO_NOPULL;
 //  HW_GPIO_Init( RADIO_TCXO_VCC_PORT, RADIO_TCXO_VCC_PIN, &initStruct );
 }
 
@@ -190,7 +192,7 @@ void SX1276IoDeInit( void )
 
   initStruct.Mode = GPIO_MODE_IT_RISING ; //GPIO_MODE_ANALOG;
   initStruct.Pull = GPIO_NOPULL;
-  
+
   HW_GPIO_Init( RADIO_DIO_0_PORT, RADIO_DIO_0_PIN, &initStruct );
   HW_GPIO_Init( RADIO_DIO_1_PORT, RADIO_DIO_1_PIN, &initStruct );
   HW_GPIO_Init( RADIO_DIO_2_PORT, RADIO_DIO_2_PIN, &initStruct );
@@ -260,7 +262,13 @@ void SX1276SetRfTxPower( int8_t power )
 }
 uint8_t SX1276GetPaSelect( uint32_t channel )
 {
-    return RF_PACONFIG_PASELECT_PABOOST;//RF_PACONFIG_PASELECT_RFO;
+    if( channel < RF_MID_BAND_THRESH ) {
+        sx1276_band = 1;
+        return RF_PACONFIG_PASELECT_PABOOST;//RF_PACONFIG_PASELECT_RFO;
+    } else {
+        sx1276_band = 2;
+        return RF_PACONFIG_PASELECT_RFO;
+    }
 }
 
 
@@ -271,7 +279,7 @@ void SX1276SetAntSwLowPower( bool status )
     {
       SX1276AntSwInit( );
     }
-    else 
+    else
     {
       SX1276AntSwDeInit( );
     }
@@ -282,16 +290,25 @@ static void SX1276AntSwInit( void )
   GPIO_InitTypeDef initStruct={0};
 
   initStruct.Mode =GPIO_MODE_OUTPUT_PP;
-  initStruct.Pull = GPIO_NOPULL; 
+  initStruct.Pull = GPIO_NOPULL;
   initStruct.Speed = GPIO_SPEED_HIGH;
-  
-  HW_GPIO_Init( RADIO_ANT_SWITCH_PORT, RADIO_ANT_SWITCH_PIN, &initStruct  ); 
-  HW_GPIO_Write( RADIO_ANT_SWITCH_PORT, RADIO_ANT_SWITCH_PIN, 0);
-//  
-//  HW_GPIO_Init( RADIO_ANT_SWITCH_PORT_TX_BOOST, RADIO_ANT_SWITCH_PIN_TX_BOOST, &initStruct  ); 
+
+  HW_GPIO_Init( RADIO_ANT_SWITCH_RXTX1_PORT, RADIO_ANT_SWITCH_RXTX1_PIN, &initStruct  );
+  HW_GPIO_Write( RADIO_ANT_SWITCH_RXTX1_PORT, RADIO_ANT_SWITCH_RXTX1_PIN, 0);
+
+  HW_GPIO_Init( RADIO_ANT_SWITCH_RXTX2_PORT, RADIO_ANT_SWITCH_RXTX2_PIN, &initStruct  );
+  HW_GPIO_Write( RADIO_ANT_SWITCH_RXTX2_PORT, RADIO_ANT_SWITCH_RXTX2_PIN, 0);
+
+  HW_GPIO_Init( RADIO_BAND_SWHF_PORT, RADIO_BAND_SWHF_PIN, &initStruct  );
+  HW_GPIO_Write( RADIO_BAND_SWHF_PORT, RADIO_BAND_SWHF_PIN, 0);
+
+  HW_GPIO_Init( RADIO_BAND_SWLF_PORT, RADIO_BAND_SWLF_PIN, &initStruct  );
+  HW_GPIO_Write( RADIO_BAND_SWLF_PORT, RADIO_BAND_SWLF_PIN, 0);
+//
+//  HW_GPIO_Init( RADIO_ANT_SWITCH_PORT_TX_BOOST, RADIO_ANT_SWITCH_PIN_TX_BOOST, &initStruct  );
 //  HW_GPIO_Write( RADIO_ANT_SWITCH_PORT_TX_BOOST, RADIO_ANT_SWITCH_PIN_TX_BOOST, 0);
-//  
-//  HW_GPIO_Init( RADIO_ANT_SWITCH_PORT_TX_RFO, RADIO_ANT_SWITCH_PIN_TX_RFO, &initStruct  ); 
+//
+//  HW_GPIO_Init( RADIO_ANT_SWITCH_PORT_TX_RFO, RADIO_ANT_SWITCH_PIN_TX_RFO, &initStruct  );
 //  HW_GPIO_Write( RADIO_ANT_SWITCH_PORT_TX_RFO, RADIO_ANT_SWITCH_PIN_TX_RFO, 0);
 }
 
@@ -300,17 +317,26 @@ static void SX1276AntSwDeInit( void )
   GPIO_InitTypeDef initStruct={0};
 
   initStruct.Mode = GPIO_MODE_ANALOG ;
-  
+
   initStruct.Pull = GPIO_NOPULL;
   initStruct.Speed = GPIO_SPEED_HIGH;
 
-  HW_GPIO_Init( RADIO_ANT_SWITCH_PORT, RADIO_ANT_SWITCH_PIN, &initStruct  ); 
-  HW_GPIO_Write( RADIO_ANT_SWITCH_PORT, RADIO_ANT_SWITCH_PIN, 0);
-  
-//  HW_GPIO_Init( RADIO_ANT_SWITCH_PORT_TX_BOOST, RADIO_ANT_SWITCH_PIN_TX_BOOST, &initStruct  ); 
+  HW_GPIO_Init( RADIO_ANT_SWITCH_RXTX1_PORT, RADIO_ANT_SWITCH_RXTX1_PIN, &initStruct  );
+  HW_GPIO_Write( RADIO_ANT_SWITCH_RXTX1_PORT, RADIO_ANT_SWITCH_RXTX1_PIN, 0);
+
+  HW_GPIO_Init( RADIO_ANT_SWITCH_RXTX2_PORT, RADIO_ANT_SWITCH_RXTX2_PIN, &initStruct  );
+  HW_GPIO_Write( RADIO_ANT_SWITCH_RXTX2_PORT, RADIO_ANT_SWITCH_RXTX2_PIN, 0);
+
+  HW_GPIO_Init( RADIO_BAND_SWHF_PORT, RADIO_BAND_SWHF_PIN, &initStruct  );
+  HW_GPIO_Write( RADIO_BAND_SWHF_PORT, RADIO_BAND_SWHF_PIN, 0);
+
+  HW_GPIO_Init( RADIO_BAND_SWLF_PORT, RADIO_BAND_SWLF_PIN, &initStruct  );
+  HW_GPIO_Write( RADIO_BAND_SWLF_PORT, RADIO_BAND_SWLF_PIN, 0);
+
+//  HW_GPIO_Init( RADIO_ANT_SWITCH_PORT_TX_BOOST, RADIO_ANT_SWITCH_PIN_TX_BOOST, &initStruct  );
 //  HW_GPIO_Write( RADIO_ANT_SWITCH_PORT_TX_BOOST, RADIO_ANT_SWITCH_PIN_TX_BOOST, 0);
-//  
-//  HW_GPIO_Init( RADIO_ANT_SWITCH_PORT_TX_RFO, RADIO_ANT_SWITCH_PIN_TX_RFO, &initStruct  ); 
+//
+//  HW_GPIO_Init( RADIO_ANT_SWITCH_PORT_TX_RFO, RADIO_ANT_SWITCH_PIN_TX_RFO, &initStruct  );
 //  HW_GPIO_Write( RADIO_ANT_SWITCH_PORT_TX_RFO, RADIO_ANT_SWITCH_PIN_TX_RFO, 0);
 }
 
@@ -320,7 +346,8 @@ void SX1276SetAntSw( uint8_t opMode )
     switch( opMode )
     {
     case RFLR_OPMODE_TRANSMITTER:
-      HW_GPIO_Write( RADIO_ANT_SWITCH_PORT, RADIO_ANT_SWITCH_PIN, 0 );
+      HW_GPIO_Write( RADIO_ANT_SWITCH_RXTX1_PORT, RADIO_ANT_SWITCH_RXTX1_PIN, 1 );
+      HW_GPIO_Write( RADIO_ANT_SWITCH_RXTX2_PORT, RADIO_ANT_SWITCH_RXTX2_PIN, 0 );
       SX1276.RxTx = 1;
     break;
     case RFLR_OPMODE_RECEIVER:
@@ -328,10 +355,28 @@ void SX1276SetAntSw( uint8_t opMode )
     case RFLR_OPMODE_CAD:
     default:
      SX1276.RxTx = 0;
-     HW_GPIO_Write( RADIO_ANT_SWITCH_PORT, RADIO_ANT_SWITCH_PIN, 1 );
+     HW_GPIO_Write( RADIO_ANT_SWITCH_RXTX1_PORT, RADIO_ANT_SWITCH_RXTX1_PIN, 0 );
+     HW_GPIO_Write( RADIO_ANT_SWITCH_RXTX2_PORT, RADIO_ANT_SWITCH_RXTX2_PIN, 1 );
      break;
     }
-  
+
+    switch(sx1276_band){
+    case 0:
+    case 1:     // LF
+    default:    // Set default and unknown switch status to LF BAND
+        //GpioWrite( &AntSwitchHF, 0 );
+        //GpioWrite( &AntSwitchLF, 1 );
+        HW_GPIO_Write( RADIO_BAND_SWHF_PORT, RADIO_BAND_SWHF_PIN, 0 );
+        HW_GPIO_Write( RADIO_BAND_SWLF_PORT, RADIO_BAND_SWLF_PIN, 1 );
+        break;
+    case 2:     // HF
+        //GpioWrite( &AntSwitchHF, 1 );
+        //GpioWrite( &AntSwitchLF, 0 );
+        HW_GPIO_Write( RADIO_BAND_SWHF_PORT, RADIO_BAND_SWHF_PIN, 1 );
+        HW_GPIO_Write( RADIO_BAND_SWLF_PORT, RADIO_BAND_SWLF_PIN, 0 );
+        break;
+    }
+
 }
 
 
